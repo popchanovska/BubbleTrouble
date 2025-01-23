@@ -1,6 +1,5 @@
-def print_hi(name):
-    print(f'Hi, User! {name}')
-
+from game import *
 
 if __name__ == '__main__':
-    print_hi('Welcome to Bubble Trouble.')
+    game = Game()
+    game.start()
