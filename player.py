@@ -9,6 +9,9 @@ class Player:
         self.image = pygame.image.load('images/player.png')
         self.moving_left = False
         self.moving_right = False
+        self.lives = 3
+        self.invincible = False
+        self.invincible_timer = 0
         # self.rect = self.image.get_rect()
 
     def shoot(self):
@@ -22,3 +25,8 @@ class Player:
             self.x += PLAYERSPEED
         if self.weapon.is_active:
             self.weapon.update()
+
+        if self.invincible:
+            self.invincible_timer -= 1
+            if self.invincible_timer <= 0:
+                self.invincible = False
