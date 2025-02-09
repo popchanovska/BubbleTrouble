@@ -1,5 +1,4 @@
-from game import *
+from gui import start_main_menu
 
 if __name__ == '__main__':
-    game = Game()
-    game.start()
+    start_main_menu()
