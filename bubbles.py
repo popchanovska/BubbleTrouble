@@ -39,4 +39,4 @@ class Ball(Bubble):
 
 class Hexagon(Bubble):
     def __init__(self, x, y, size, speed):
-        Bubble.__init__(self, x, y, size, speed, 'hexagon.png')
+        Bubble.__init__(self, x, y, size, speed, 'blueBall.png')
