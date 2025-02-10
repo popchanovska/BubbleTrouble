@@ -2,6 +2,7 @@ import sys
 from threading import Timer
 import random
 import json
+import pygame.mixer
 
 from bubbles import *
 from player import *
@@ -9,6 +10,11 @@ from bonuses import *
 
 
 class Game:
+
+    global pop_sound
+
+    pygame.mixer.init()
+    pop_sound = pygame.mixer.Sound("sounds/mixkit-game-ball-tap-2073.wav")
 
     def __init__(self, level=1):
         self.balls = []
@@ -127,17 +133,21 @@ class Game:
         elif bonus == BONUS_TIME:
             self.time_left += 10
 
+
     def _split_ball(self, ball_index):
         ball = self.balls[ball_index]
+        pop_sound.play()
+
         if ball.size > 1:
             self.balls.append(Ball(
-                ball.rect.left - ball.size**2,
+                ball.rect.left - ball.size ** 2,
                 ball.rect.top - 10, ball.size - 1, [-3, -5])
             )
             self.balls.append(
-                Ball(ball.rect.left + ball.size**2,
+                Ball(ball.rect.left + ball.size ** 2,
                      ball.rect.top - 10, ball.size - 1, [3, -5])
             )
+
         del self.balls[ball_index]
         bonus_type = self._drop_bonus()
         if bonus_type:
@@ -146,6 +156,8 @@ class Game:
 
     def _split_hexagon(self, hex_index):
         hexagon = self.hexagons[hex_index]
+        pop_sound.play()
+
         if hexagon.size > 1:
             self.hexagons.append(
                 Hexagon(hexagon.rect.left, hexagon.rect.centery,
@@ -153,6 +165,7 @@ class Game:
             self.hexagons.append(
                 Hexagon(hexagon.rect.right, hexagon.rect.centery,
                         hexagon.size - 1, [3, -5]))
+
         del self.hexagons[hex_index]
         bonus_type = self._drop_bonus()
         if bonus_type:
