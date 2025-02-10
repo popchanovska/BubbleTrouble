@@ -102,11 +102,18 @@ def draw_bonus(bonus):
 
 
 def draw_message(message, colour):
-    label = font.render(message, 1, colour)
-    rect = label.get_rect()
-    rect.centerx = screen.get_rect().centerx
-    rect.centery = screen.get_rect().centery
-    screen.blit(label, rect)
+    bold_font = pygame.font.SysFont('monospace', 50, bold=True)
+
+    shadow = bold_font.render(message, True, (50, 50, 50))
+    shadow_rect = shadow.get_rect()
+    shadow_rect.center = (screen.get_rect().centerx + 3, screen.get_rect().centery + 3)
+
+    label = bold_font.render(message, True, colour)
+    label_rect = label.get_rect()
+    label_rect.center = screen.get_rect().center
+
+    screen.blit(shadow, shadow_rect)
+    screen.blit(label, label_rect)
 
 
 def draw_timer():
@@ -147,10 +154,10 @@ def draw_world():
         draw_message('Game over!', RED)
         start_main_menu()
     if game.is_completed:
-        draw_message('Congratulations! You win!!!', PURPLE)
+        draw_message('You win!', PURPLE)
         start_main_menu()
     if game.level_completed and not game.is_completed:
-        draw_message('Well done! Level completed!', BLUE)
+        draw_message('Level completed!', BLUE)
     if game.is_restarted:
         draw_message('Get ready!', BLUE)
 
