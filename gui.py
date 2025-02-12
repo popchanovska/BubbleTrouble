@@ -178,8 +178,7 @@ def handle_game_event():
                     game.players[1].moving_left = True
                 elif event.key == K_d:
                     game.players[1].moving_right = True
-                elif event.key == K_LCTRL and \
-                        not game.players[1].weapon.is_active:
+                elif event.key == K_w and not game.players[1].weapon.is_active:
                     game.players[1].shoot()
         if event.type == KEYUP:
             if event.key == K_LEFT:
