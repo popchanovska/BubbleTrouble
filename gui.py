@@ -85,8 +85,8 @@ def draw_ball(ball):
     screen.blit(ball.image, ball.rect)
 
 
-def draw_hex(hexagon):
-    screen.blit(hexagon.image, hexagon.rect)
+def draw_blue_ball(blueBall):
+    screen.blit(blueBall.image, blueBall.rect)
 
 
 def draw_player(player):
@@ -138,8 +138,8 @@ def draw_players_lives(player, is_main_player=True):
 
 def draw_world():
     screen.fill(WHITE)
-    for hexagon in game.hexagons:
-        draw_hex(hexagon)
+    for blueBall in game.blueBalls:
+        draw_blue_ball(blueBall)
     for ball in game.balls:
         draw_ball(ball)
     for player_index, player in enumerate(game.players):

@@ -37,6 +37,6 @@ class Ball(Bubble):
         Bubble.update(self)
 
 
-class Hexagon(Bubble):
+class BlueBall(Bubble):
     def __init__(self, x, y, size, speed):
         Bubble.__init__(self, x, y, size, speed, 'blueBall.png')

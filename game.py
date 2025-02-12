@@ -18,7 +18,7 @@ class Game:
 
     def __init__(self, level=1):
         self.balls = []
-        self.hexagons = []
+        self.blueBalls = []
         self.players = [Player()]
         self.bonuses = []
         self.level = level
@@ -44,7 +44,7 @@ class Game:
         if self.is_multiplayer and len(self.players) == 1:
             self.players.append(Player('player2.png'))
         self.balls = []
-        self.hexagons = []
+        self.blueBalls = []
         self.bonuses = []
         self.dead_player = False
         for index, player in enumerate(self.players):
@@ -70,11 +70,11 @@ class Game:
                 size = ball['size']
                 speed = ball['speed']
                 self.balls.append(Ball(x, y, size, speed))
-            for hexagon in level['hexagons']:
-                x, y = hexagon['x'], hexagon['y']
-                size = hexagon['size']
-                speed = hexagon['speed']
-                self.hexagons.append(Hexagon(x, y, size, speed))
+            for blueBall in level['blueBalls']:
+                x, y = blueBall['x'], blueBall['y']
+                size = blueBall['size']
+                speed = blueBall['speed']
+                self.blueBalls.append(BlueBall(x, y, size, speed))
         self._start_timer()
 
     def _start_timer(self):
@@ -83,7 +83,7 @@ class Game:
     def _check_for_collisions(self):
         for player in self.players:
             self._check_for_bubble_collision(self.balls, True, player)
-            self._check_for_bubble_collision(self.hexagons, False, player)
+            self._check_for_bubble_collision(self.blueBalls, False, player)
             self._check_for_bonus_collision(player)
 
     def _check_for_bubble_collision(self, bubbles, is_ball, player):
@@ -94,7 +94,7 @@ class Game:
                 if is_ball:
                     self._split_ball(bubble_index)
                 else:
-                    self._split_hexagon(bubble_index)
+                    self._split_blue_ball(bubble_index)
                 return True
             if pygame.sprite.collide_mask(bubble, player):
                 player.is_alive = False
@@ -154,22 +154,22 @@ class Game:
             bonus = Bonus(ball.rect.centerx, ball.rect.centery, bonus_type)
             self.bonuses.append(bonus)
 
-    def _split_hexagon(self, hex_index):
-        hexagon = self.hexagons[hex_index]
+    def _split_blue_ball(self, blue_index):
+        blueBall = self.blueBalls[blue_index]
         pop_sound.play()
 
-        if hexagon.size > 1:
-            self.hexagons.append(
-                Hexagon(hexagon.rect.left, hexagon.rect.centery,
-                        hexagon.size - 1, [-3, -5]))
-            self.hexagons.append(
-                Hexagon(hexagon.rect.right, hexagon.rect.centery,
-                        hexagon.size - 1, [3, -5]))
+        if blueBall.size > 1:
+            self.blueBalls.append(
+                BlueBall(blueBall.rect.left, blueBall.rect.centery,
+                         blueBall.size - 1, [-3, -5]))
+            self.blueBalls.append(
+                BlueBall(blueBall.rect.right, blueBall.rect.centery,
+                         blueBall.size - 1, [3, -5]))
 
-        del self.hexagons[hex_index]
+        del self.blueBalls[blue_index]
         bonus_type = self._drop_bonus()
         if bonus_type:
-            bonus = Bonus(hexagon.rect.centerx, hexagon.rect.centery,
+            bonus = Bonus(blueBall.rect.centerx, blueBall.rect.centery,
                           bonus_type)
             self.bonuses.append(bonus)
 
@@ -185,13 +185,13 @@ class Game:
         self._check_for_collisions()
         for ball in self.balls:
             ball.update()
-        for hexagon in self.hexagons:
-            hexagon.update()
+        for blueBall in self.blueBalls:
+            blueBall.update()
         for player in self.players:
             player.update()
         for bonus in self.bonuses:
             bonus.update()
-        if not self.balls and not self.hexagons:
+        if not self.balls and not self.blueBalls:
             self.level_completed = True
             if self.level == self.max_level:
                 self.is_completed = True

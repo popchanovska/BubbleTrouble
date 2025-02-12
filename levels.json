@@ -9,7 +9,7 @@
                 "speed": [3,0]
             }
         ],
-        "hexagons": []
+        "blueBalls": []
     },
 
     "2": {
@@ -22,7 +22,7 @@
                 "speed": [3, 0]
             }
         ],
-        "hexagons": [
+        "blueBalls": [
             {
                 "x": 200,
                 "y": 200,
@@ -35,7 +35,7 @@
     "3": {
         "time": 30,
         "balls": [],
-        "hexagons": [
+        "blueBalls": [
         {
             "x": 200,
             "y": 200,
@@ -55,7 +55,7 @@
             "speed": [3, 0]
         }
         ],
-        "hexagons": []
+        "blueBalls": []
     },
 
     "5": {
@@ -68,7 +68,7 @@
             "speed": [3, 7]
         }
         ],
-        "hexagons": [
+        "blueBalls": [
         {
             "x": 200,
             "y": 200,

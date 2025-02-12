@@ -7,13 +7,13 @@ from bonuses import *
 class BubbleTest(unittest.TestCase):
     def setUp(self):
         self.ball = Ball(200, 200, 3, [3, 5])
-        self.hexagon = Hexagon(250, 250, 2, [4, 4])
+        self.blueBall = BlueBall(250, 250, 2, [4, 4])
 
     def test_ball_has_image(self):
         self.assertIsNotNone(self.ball.image, 'Red ball has no image')
 
     def test_blue_ball_has_image(self):
-        self.assertIsNotNone(self.hexagon.image, 'Blue ball has no image')
+        self.assertIsNotNone(self.blueBall.image, 'Blue ball has no image')
 
     @staticmethod
     def move_bubble(bubble):
@@ -27,9 +27,9 @@ class BubbleTest(unittest.TestCase):
         self.assertEqual(start_rect.move(self.ball.speed), end_rect)
 
     def test_blue_ball_movement(self):
-        start_rect = self.hexagon.rect
-        end_rect = self.move_bubble(self.hexagon)
-        self.assertEqual(start_rect.move(self.hexagon.speed), end_rect)
+        start_rect = self.blueBall.rect
+        end_rect = self.move_bubble(self.blueBall)
+        self.assertEqual(start_rect.move(self.blueBall.speed), end_rect)
 
 
 class BonusTest(unittest.TestCase):
@@ -41,7 +41,7 @@ class BonusTest(unittest.TestCase):
         self.assertIsNotNone(self.life_bonus.image, 'Ball has no image')
 
     def test_time_bonus_has_image(self):
-        self.assertIsNotNone(self.time_bonus.image, 'Hexagon has no image')
+        self.assertIsNotNone(self.time_bonus.image, 'BlueBall has no image')
 
     def test_bonus_movement(self):
         start_rect = self.life_bonus.rect
